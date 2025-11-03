@@ -16,7 +16,11 @@ export default function Modal ({
         className={joinClasses(defaultModalBoxClasses, className)} 
         {...props}
       >
-        <div className='w-fit ml-auto mr-2 mb-1 cursor-pointer' onClick={onClose}>
+        <div 
+          className='w-fit ml-auto mr-2 mb-1 cursor-pointer' 
+          onClick={onClose} 
+          aria-label='fechar formulário'
+        >
           <Xmark />
         </div>
         <div className='w-full min-h-20 max-h-[80vh]'>

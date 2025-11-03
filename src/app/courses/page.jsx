@@ -14,14 +14,12 @@ export default function Courses() {
   const [courseSelectedId, setCourseSelectedId] = useState(undefined);
 
   const handleOpenForm = (mode, courseId) => {
-    debugger
     setFormMode(() => {
       if (courseId) setCourseSelectedId(courseId);
       setOpenForm(true);
 
       return mode;
     });
-    debugger
   }
 
   return (

@@ -5,6 +5,7 @@ import Button from "@/components/Button";
 import Label from "@/components/Label";
 import { mockCoursesList } from "@/coursesMock";
 import { useState } from "react";
+import { EditPencil } from "iconoir-react";
 
 export default function FormModal({
   onClose,
@@ -42,15 +43,18 @@ export default function FormModal({
 
   return (
     <Modal
-      className='bg-white'
+      className='bg-white w-[50%]'
       onClose={onClose}
     >
-      <Form onSubmit={
-        isEditionForm 
-        ? onEditCourse
-        : onCreateCourse
-      }>
-        <div className="pb-3 font-bold text-lg">
+      <Form 
+        onSubmit={
+          isEditionForm 
+          ? onEditCourse
+          : onCreateCourse
+        }
+        className='w-[70%] ml-auto mr-auto'
+      >
+        <div className="pb-5 font-bold text-lg flex">
           <h1>{isEditionForm ? 'Editar Curso' : 'Novo Curso'}</h1>
         </div>
         <Label text='Título' htmlFor='course-title' required />
