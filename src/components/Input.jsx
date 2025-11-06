@@ -7,7 +7,7 @@ const Input = ({
   className,
   ...props
 }) => {
-  const defaultClasses = 'p-1 mb-2 border-2 border-gray-200 bg-white rounded-md';
+  const defaultClasses = 'p-1 mb-2 border-2 border-gray-200 bg-white rounded-md w-full';
 
   return (
     <input

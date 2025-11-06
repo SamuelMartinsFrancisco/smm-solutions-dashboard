@@ -7,7 +7,7 @@ export default function Label ({
   required,
   ...props
 }) {
-  const defaultClasses = 'text-gray-600';
+  const defaultClasses = 'text-gray-600 block';
   const treatedText = text + (required ? '*' : '');
 
   return (

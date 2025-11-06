@@ -7,9 +7,11 @@ import { mockCoursesList } from "@/coursesMock";
 import { PlusSquare } from "iconoir-react";
 import FormModal from "./FormModal";
 import { useState } from "react";
+import DeleteModal from "./DeleteModal";
 
 export default function Courses() {
   const [openForm, setOpenForm] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [formMode, setFormMode] = useState('create');
   const [courseSelectedId, setCourseSelectedId] = useState(undefined);
 
@@ -20,6 +22,16 @@ export default function Courses() {
 
       return mode;
     });
+  }
+  
+  const handleOpenDeleteModal = (courseId) => {
+    setCourseSelectedId(courseId);
+    setOpenDeleteModal(true);
+  }
+
+  const onDelete = () => {
+    window.alert('course deleted!');
+    setOpenDeleteModal(false);
   }
 
   return (
@@ -45,6 +57,7 @@ export default function Courses() {
               description={course.description}
               imgAlt={`${course.title} image`}
               onEdit={() => handleOpenForm('edit', course.id)}
+              onDelete={() => handleOpenDeleteModal(course.id)}
               key={course.id}
             />
           ))
@@ -57,6 +70,14 @@ export default function Courses() {
             onClose={() => setOpenForm(false)}
             mode={formMode}
             itemId={courseSelectedId}
+          />
+      }
+
+      {
+        openDeleteModal && 
+          <DeleteModal 
+            onClose={() => setOpenDeleteModal(false)}
+            onDelete={onDelete}
           />
       }
     </div>

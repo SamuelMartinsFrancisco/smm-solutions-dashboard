@@ -1,13 +1,12 @@
 import { joinClasses } from "@/utils/utils";
 import { Xmark } from "iconoir-react";
-import { useState } from "react";
 
 export default function Modal ({
   className,
   onClose,
   ...props
 }) {
-  const defaultBackgroundClasses = 'fixed top-0 left-0 w-full h-full bg-gray-500/40 z-999 flex justify-cente items-center backdrop-blur-xs';
+  const defaultBackgroundClasses = 'fixed top-0 left-0 w-full h-full bg-gray-500/40 z-999 flex justify-center items-center backdrop-blur-xs';
   const defaultModalBoxClasses = 'm-auto p-3 rounded-xl z-1000 opacity-100';
 
   return (
