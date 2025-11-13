@@ -1,11 +1,11 @@
 import { joinClasses } from "@/utils/utils";
 
-const Form = ({
+export default function Form({
   onSubmit,
   className,
   children
-}) => {
-  const defaultClasses = 'bg-white rounded-2xl flex justify-center align-center p-3 min-w-[75%]';
+}) {
+  const defaultClasses = 'bg-white rounded-2xl flex justify-center align-center p-3'; //min-w-[75%]
 
   return (
     <div
@@ -17,5 +17,3 @@ const Form = ({
     </div>
   )
 }
-
-export default Form;

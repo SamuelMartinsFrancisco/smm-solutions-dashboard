@@ -1,16 +1,27 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import SmmLogo from '../../public/assets/img/logo.jpg';
 import { joinClasses } from '@/utils/utils';
 import SideBarItem from './SideBarItem';
 import { BookmarkBook } from 'iconoir-react';
+import { usePathname } from 'next/navigation';
+import { ROUTES } from '../constants';
 
 export default function SideBar({
   className,
 }) {
-  const defaultClasses = 'min-w-50 h-screen w-[25%] bg-gray-200 rounded-r-3xl';
+  const defaultClasses = 'fixed min-w-50 h-screen w-[22%] bg-gray-200 rounded-r-3xl max-sm:hidden';
+  const [currentSelected, setCurrentSelected] = useState(''); 
+  const pagePath = usePathname();
+
+  useEffect(() => {
+    switch (pagePath) {
+      case ROUTES.courses:
+        setCurrentSelected('courses');
+    }
+  }, [pagePath])
 
   return (
     <div className={joinClasses(defaultClasses, className)}>
@@ -34,6 +45,8 @@ export default function SideBar({
             label='Cursos'
             link='/courses'
             LeftIcon={() => <BookmarkBook />}
+            onClick={() => setCurrentSelected('courses')}
+            isSelected={currentSelected === 'courses'}
           />
         </ul>
       </nav>

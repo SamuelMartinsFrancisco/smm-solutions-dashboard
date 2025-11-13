@@ -1,6 +1,8 @@
+'use client'
+
 import { joinClasses } from "@/utils/utils";
-import Modal from "@/components/Modal";
-import Button from "@/components/Button";
+import Modal from "../../../components/Modal";
+import Button from "../../../components/Button";
 
 export default function DeleteModal ({
   onDelete,

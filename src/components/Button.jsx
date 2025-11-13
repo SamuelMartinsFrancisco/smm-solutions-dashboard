@@ -1,13 +1,13 @@
 import { joinClasses } from "@/utils/utils";
 
-const Button = ({
+export default function Button ({
   label,
   LeftIcon,
   RightIcon,
   onClick,
   className,
   ...props
-}) => {
+}) {
   const defaultClasses = 'p-2 cursor-pointer rounded-md text-center';
 
   return (
@@ -19,15 +19,13 @@ const Button = ({
     > 
       <span className="flex justify-center">
         {
-          LeftIcon && <LeftIcon />
+          LeftIcon && <span><LeftIcon /></span>
         }
         { label && <span className='pl-1 pr-1'>{ label }</span>}
         {
-          RightIcon && <RightIcon />
+          RightIcon && <span><RightIcon /></span>
         }
       </span>
     </button>
   )
 }
-
-export default Button;

@@ -1,11 +1,18 @@
-import Modal from "@/components/Modal";
-import Form from "@/components/Form";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
-import Label from "@/components/Label";
-import InlineTags from "@/components/InlineTags";
-import { mockCoursesList } from "@/coursesMock";
-import { useState } from "react";
+'use client'
+
+import { useState, useContext, useMemo } from "react";
+import Modal from "../../../components/Modal";
+import Form from "../../../components/Form";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
+import Label from "../../../components/Label";
+import InlineTags from "../../../components/InlineTags";
+import { mockCoursesList } from "../../../coursesMock";
+import { ContentContext } from "../../../context/ContentContext";
+import usePostCourseHook from '../../../hooks/usePostCourseHook';
+import usePatchCourseHook from '../../../hooks/usePatchCourseHook';
+import checkListsEquality from '../../../utils/checkListsEquality';
+import Hint from '../../../components/Hint';
 
 export default function FormModal({
   onClose,
@@ -19,41 +26,108 @@ export default function FormModal({
   const [courseTags, setCourseTags] = useState([]);
   const [singleTagInput, setSingleTagInput] = useState('');
   const [courseLink, setCourseLink] = useState('');
-  const isEditionForm = (mode === 'edit');
   const [isDataFilled, setIsDataFilled] = useState(false);
+  const { courses } = useContext(ContentContext);
+  debugger
+
+  const isEditionForm = (mode === 'edit');
   const allRequiredAreFilled = (
     courseTitle
     && courseDescription
-    && courseTags
+    && !!courseTags.length
     && courseLink
   );
+  const courseBeingEdited = itemId ? courses.data.find(course => course.id === itemId) : {};
+  const splittedCourseTags = courseBeingEdited?.tags?.toString().split(',');
 
-  debugger
+  const getModifiedFields = () => {
+    const modifiedFields = [];
+    const courseTagsHasChanged = !checkListsEquality(splittedCourseTags, courseTags);
 
-  const onCreateCourse = (event) => {
-    window.alert('Course creation form');
+    Object.entries(courseBeingEdited).forEach(([key, originalValue]) => {
+      switch (key) {
+        case 'title':
+          if (courseTitle !== originalValue) modifiedFields.push([key, courseTitle]);
+          break;
+        case 'description':
+          if (courseDescription !== originalValue) modifiedFields.push([key, courseDescription]);
+          break;
+        case 'tags':
+          debugger
+          if (courseTagsHasChanged) modifiedFields.push([key, courseTags]);
+          break;
+        case 'link':
+          if (courseLink !== originalValue) modifiedFields.push([key, courseLink]);
+          break;
+      }
+    })
+
+    return (
+      modifiedFields.length 
+        ? Object.fromEntries(modifiedFields)
+        : null
+    );
   }
 
-  const onEditCourse = (event) => {
-    window.alert('Course edition form: ' + courseTitle);
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const onCreateCourse = async () => {
     if (!allRequiredAreFilled) {
       window.alert('>:(');
       return;
     }
 
-    if (isEditionForm) {
-      onEditCourse();
+    const result = await usePostCourseHook({
+      title: courseTitle,
+      description: courseDescription,
+      tags: courseTags,
+      link: courseLink,
+    })
+
+    if (result.hasError) {
+      console.log(result.error)
+      return;
+    };
+    
+    courses.refreshData();
+    onClose();
+  }
+
+  const onEditCourse = async () => {
+    const modifiedFields = getModifiedFields();
+    if (!modifiedFields) return;
+    if (!allRequiredAreFilled) {
+      window.alert('>:(');
       return;
     }
 
-    onCreateCourse();
+    const result = await usePatchCourseHook(modifiedFields, itemId);
+
+    if (result.hasError) {
+      console.log(result.error)
+      return;
+    };
+
+    courses.refreshData();
+    onClose();
+  }
+
+  const onTagPop = (tagIndex) => {
+    const newTags = [...courseTags];
+    newTags.splice(tagIndex, 1);
+    setCourseTags(newTags);
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (isEditionForm) {
+      onEditCourse(event);
+      return;
+    }
+    onCreateCourse(event);
   }
 
   const handleTagsInputOnChange = (event) => {
+    event.preventDefault();
     const typedText = event.target.value;
 
     if (!typedText.trim() && !singleTagInput) return;
@@ -66,20 +140,17 @@ export default function FormModal({
     event.preventDefault();
     
     if (!singleTagInput) return;
-    debugger
     setCourseTags((previous) => [...previous, singleTagInput]);
     setSingleTagInput('');
-    debugger
   }
 
   if (isEditionForm && !isDataFilled) {
-    const courseBeingEdited = mockCoursesList.find(course => course.id === itemId);
     if (!courseBeingEdited) return;
 
     setCourseTitle(courseBeingEdited.title);
     setCourseDescription(courseBeingEdited.description);
     if (courseBeingEdited.img) setCourseImg(courseBeingEdited.img);
-    setCourseTags(courseBeingEdited.tags.toString().split(','));
+    setCourseTags(splittedCourseTags);
     setCourseLink(courseBeingEdited.link);
     setIsDataFilled(true);
   }
@@ -121,9 +192,19 @@ export default function FormModal({
               onKeyDown={(event) => handleEnterKeyDown(event)}
               id='course-tags'
             />
-            <InlineTags 
-              items={courseTags} 
+            <Hint
+              text='Press enter to save the typed tag' 
+              className='-mt-1'
             />
+            {
+              !!courseTags.length &&
+                <InlineTags
+                  items={courseTags}
+                  onClick={onTagPop}
+                  className='mt-2'
+                  editionEnabled 
+                />
+            }
           </div>
           <div>
             <Label text='Link do Curso' htmlFor='course-title' required />
