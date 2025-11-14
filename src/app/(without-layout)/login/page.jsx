@@ -14,8 +14,21 @@ export default function Login () {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const onLogin = () => {
-    window.alert('OK!');
+  const onLogin = (event) => {
+    event.preventDefault();
+
+    const areInvalidCredentials = (
+      !email
+      || !password
+      || password != 'admin123'
+      || email != 'admin@admin.com'
+    );
+
+    if (areInvalidCredentials) {
+      window.alert('Um ou mais dados informados estão incorretos, por favor verifique-os.');
+      return;
+    }
+
     router.push('/courses')
   }
 

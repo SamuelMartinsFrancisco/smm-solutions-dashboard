@@ -43,10 +43,9 @@ export default function Courses() {
 
   if (courses.loading) return <SkeletonContentListItem />
   if (courses.error) return <span>{'Houve um erro :('}</span>
-  debugger
 
   return (
-    <div className='w-full p-5'>
+    <div className='w-full p-5 max-lg:mt-7'>
       <Header 
         title='Cursos'
         subtitle='Aqui você pode gerenciar os cursos que vão aparecer em sua página'

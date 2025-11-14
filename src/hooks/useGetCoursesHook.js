@@ -7,7 +7,6 @@ const useGetCoursesHook = async () => {
     return { hasError: false, data: response ?? [] };
   } catch (error) {
     //console.error('Some unkwnown error have happened:' + error.message);
-    debugger
     return { hasError: true, error: error.message, data: [] };
   }
 }

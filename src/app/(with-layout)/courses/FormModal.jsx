@@ -28,7 +28,6 @@ export default function FormModal({
   const [courseLink, setCourseLink] = useState('');
   const [isDataFilled, setIsDataFilled] = useState(false);
   const { courses } = useContext(ContentContext);
-  debugger
 
   const isEditionForm = (mode === 'edit');
   const allRequiredAreFilled = (
@@ -53,7 +52,6 @@ export default function FormModal({
           if (courseDescription !== originalValue) modifiedFields.push([key, courseDescription]);
           break;
         case 'tags':
-          debugger
           if (courseTagsHasChanged) modifiedFields.push([key, courseTags]);
           break;
         case 'link':
@@ -157,12 +155,12 @@ export default function FormModal({
 
   return (
     <Modal
-      className='bg-white w-[50%]'
+      className='bg-white w-[50%] max-sm:w-[95%]'
       onClose={onClose}
     >
       <Form 
         onSubmit={handleSubmit}
-        className='w-[70%] ml-auto mr-auto'
+        className='w-[70%] max-sm:w-[90%] ml-auto mr-auto'
       >
         <div className="pb-5 font-bold text-lg flex">
           <h1>{isEditionForm ? 'Editar Curso' : 'Novo Curso'}</h1>

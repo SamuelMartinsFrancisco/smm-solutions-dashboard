@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <body>
         <div className="flex">
           <SideBar />
-          <main className="w-full h-[100vh] ml-[22%] max-sm:ml-0">
+          <main className="w-full h-[100vh] ml-[22%] max-sm:ml-0 max-lg:ml-[7%]">
             <ContentProvider>
               {children}
             </ContentProvider>

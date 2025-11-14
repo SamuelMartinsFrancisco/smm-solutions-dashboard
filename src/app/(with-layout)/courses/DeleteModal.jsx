@@ -10,7 +10,7 @@ export default function DeleteModal ({
   className,
   ...props
 }) {
-  const defaultClasses = 'w-70 h-35 bg-white';
+  const defaultClasses = 'w-70 max-sm:w-45 h-35 bg-white';
 
   return (
     <Modal 

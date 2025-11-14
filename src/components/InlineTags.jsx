@@ -9,7 +9,7 @@ export default function InlineTags ({
   className
 }) {
   if (!Array.isArray(items)) return;
-  debugger
+
   return (
     <div className='w-full flex flex-wrap'>
       {

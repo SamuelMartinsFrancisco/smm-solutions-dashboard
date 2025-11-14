@@ -6,8 +6,8 @@ export default function Modal ({
   onClose,
   ...props
 }) {
-  const defaultBackgroundClasses = 'fixed top-0 left-0 w-full h-full bg-gray-500/40 z-999 flex justify-center items-center backdrop-blur-xs';
-  const defaultModalBoxClasses = 'm-auto p-3 rounded-xl z-1000 opacity-100';
+  const defaultBackgroundClasses = 'fixed max-sm:overflow-y-auto top-0 left-0 w-full h-full bg-gray-500/40 z-999 flex justify-center items-center backdrop-blur-xs';
+  const defaultModalBoxClasses = 'm-auto p-3 rounded-xl z-1000 opacity-100 h-fit';
 
   return (
     <div className={defaultBackgroundClasses}>
@@ -22,7 +22,7 @@ export default function Modal ({
         >
           <Xmark />
         </div>
-        <div className='w-full min-h-20 max-h-[80vh]'>
+        <div className='w-full min-h-20 max-h-[80vh] max-sm:max-h-fit'>
           {props.children}
         </div>
       </div>

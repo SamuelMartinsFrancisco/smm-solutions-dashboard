@@ -13,7 +13,8 @@ export default function ContentListItem({
   onDelete,
   onEdit,
 }) {
-  const defaultButtonClasses = 'min-w-10 m-1 text-white block';
+  const defaultButtonClasses = 'w-9 h-9 max-sm:w-7 max-sm:h-7 flex justify-center items-center m-1 text-white block';
+  const defaultIconClasses = 'max-sm:text-sm';
 
   const onClick = (operation) => {
     switch (operation) {
@@ -30,7 +31,7 @@ export default function ContentListItem({
     <div className='w-full flex gap-[3%] items-center mb-7'>
       <Image 
         src={img ?? SmmLogo}
-        className='min-w-20 w-[10%] rounded-sm'
+        className='min-w-20 w-[10%] max-sm:min-w-10 max-sm:w-10 rounded-sm'
         width={100}
         height={100}
         alt={imgAlt ?? 'list item image'}
@@ -43,13 +44,13 @@ export default function ContentListItem({
       </div>
       <div className='flex flex-col justify-evenly'>
         <Button 
-          LeftIcon={() => <EditPencil />}
+          LeftIcon={() => <EditPencil className={defaultIconClasses} />}
           className={joinClasses(defaultButtonClasses, 'bg-sky-600')}
           onClick={onEdit}
           aria-label='Edit course'
         />
         <Button 
-          LeftIcon={() => <Trash />}
+          LeftIcon={() => <Trash className={defaultIconClasses} />}
           className={joinClasses(defaultButtonClasses, 'bg-red-500')}
           onClick={onDelete}
           aria-label='Delete course'

@@ -10,7 +10,6 @@ const useDeleteCourseHook = async (courseId) => {
     return { hasError: false };
   } catch (error) {
     //console.error('Some unkwnown error have happened:' + error.message);
-    debugger
     return { hasError: true, error: error.message };
   }
 }
