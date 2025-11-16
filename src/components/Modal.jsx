@@ -1,4 +1,4 @@
-import { joinClasses } from "@/utils/utils";
+import { joinClasses } from "../utils/utils";
 import { Xmark } from "iconoir-react";
 
 export default function Modal ({

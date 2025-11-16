@@ -1,7 +1,7 @@
 import Image from "next/image";
 import SmmLogo from '../../public/assets/img/logo.jpg';
 import Button from "./Button";
-import { joinClasses } from "@/utils/utils";
+import { joinClasses } from "../utils/utils";
 import { Trash, EditPencil } from "iconoir-react";
 
 export default function ContentListItem({

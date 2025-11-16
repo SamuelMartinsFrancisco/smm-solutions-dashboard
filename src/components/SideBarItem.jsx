@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import { joinClasses } from "@/utils/utils";
+import { joinClasses } from "../utils/utils";
 
 export default function SideBarItem ({
   label,

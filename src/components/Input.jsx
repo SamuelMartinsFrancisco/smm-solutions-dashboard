@@ -1,4 +1,4 @@
-import { joinClasses } from "@/utils/utils";
+import { joinClasses } from "../utils/utils";
 import { EyeSolid, EyeClosed } from "iconoir-react";
 import { useState } from "react";
 

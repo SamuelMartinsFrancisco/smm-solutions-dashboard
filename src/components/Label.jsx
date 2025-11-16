@@ -1,4 +1,4 @@
-import { joinClasses } from "@/utils/utils"
+import { joinClasses } from "../utils/utils"
 
 export default function Label ({
   text,

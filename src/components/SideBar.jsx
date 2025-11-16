@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import SmmLogo from '../../public/assets/img/logo.jpg';
-import { joinClasses } from '@/utils/utils';
+import { joinClasses } from '../utils/utils';
 import SideBarItem from './SideBarItem';
 import { BookmarkBook, Menu } from 'iconoir-react';
 import { usePathname } from 'next/navigation';
