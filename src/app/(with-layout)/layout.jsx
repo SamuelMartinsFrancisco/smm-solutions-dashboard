@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "SMM Solution Automação",
-  description: "Automação inteligente para residências e empresas",
+  title: "SMM Solution Dashboard",
+  description: "Dashboard de gerenciamento dos conteúdos do website público",
 };
 
 export default function RootLayout({ children }) {
